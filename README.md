@@ -4,14 +4,7 @@
 - 一款本地化、注重隐私的AI翻译器。无云端，无追踪。只用你的语言，为你带来梦境般的体验。
 
 ## 🎥 演示视频
-
-<iframe src="https://vimeo.com/1136542753?fl=ip&fe=ec" 
-        width="560" 
-        height="315" 
-        frameborder="0" 
-        allow="autoplay; fullscreen; picture-in-picture" 
-        allowfullscreen>
-</iframe>
+[![演示视频]](https://vimeo.com/1136542753?fl=ip&fe=ec)
 
 
 ## ✨ 特性
