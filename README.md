@@ -2,6 +2,18 @@
 
 - A local, privacy-first AI translator. No clouds. No tracking. Just dreams, in your language.
 - 一款本地化、注重隐私的AI翻译器。无云端，无追踪。只用你的语言，为你带来梦境般的体验。
+
+## 🎥 演示视频
+
+<iframe src="https://vimeo.com/1136542753?fl=ip&fe=ec" 
+        width="560" 
+        height="315" 
+        frameborder="0" 
+        allow="autoplay; fullscreen; picture-in-picture" 
+        allowfullscreen>
+</iframe>
+
+
 ## ✨ 特性
 
 - 🔒 **隐私保护**：所有翻译在本地完成，数据不上传
@@ -227,8 +239,6 @@ echo 'export OLLAMA_ORIGINS="*"' >> ~/.zshrc
 source ~/.zshrc
 ollama serve
 ```
-
-📖 **详细解决方案请查看 [TROUBLESHOOTING.md](TROUBLESHOOTING.md)**
 
 ---
 
