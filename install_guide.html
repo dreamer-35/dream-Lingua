@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DreamLingua - 安装向导</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .step {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: #f9fafb;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .step h2 {
+      color: #333;
+      margin-bottom: 15px;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+
+    .step p {
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .code-block {
+      background: #1f2937;
+      color: #10b981;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      margin: 15px 0;
+      overflow-x: auto;
+    }
+
+    .command {
+      color: #60a5fa;
+    }
+
+    .comment {
+      color: #9ca3af;
+    }
+
+    .warning {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    .warning strong {
+      color: #d97706;
+    }
+
+    .success {
+      background: #ecfdf5;
+      border: 2px solid #10b981;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    .success strong {
+      color: #10b981;
+    }
+
+    .checklist {
+      list-style: none;
+      margin: 15px 0;
+    }
+
+    .checklist li {
+      padding: 10px 15px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      transition: all 0.2s;
+    }
+
+    .checklist li:hover {
+      background: #f9fafb;
+      border-color: #667eea;
+      transform: translateX(5px);
+    }
+
+    .checklist li::before {
+      content: "☐ ";
+      margin-right: 8px;
+      font-size: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      margin-right: 10px;
+      margin-top: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: #f9fafb;
+    }
+
+    .footer {
+      background: #f9fafb;
+      padding: 30px 40px;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .footer p {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .icon {
+      font-size: 24px;
+      margin-right: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .step {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>💫 DreamLingua</h1>
+      <p>安装向导 - 5 分钟即可完成配置</p>
+    </div>
+
+    <div class="content">
+      <!-- 步骤 1 -->
+      <div class="step">
+        <div class="step-number">1</div>
+        <h2>📦 安装 Ollama</h2>
+        <p>首先需要在你的电脑上安装 Ollama。选择适合你系统的安装方法：</p>
+        
+        <h3 style="margin-top: 20px; margin-bottom: 10px;">macOS</h3>
+        <div class="code-block">
+<span class="comment"># 使用 Homebrew 安装</span>
+<span class="command">brew install ollama</span>
+        </div>
+
+        <h3 style="margin-top: 20px; margin-bottom: 10px;">Linux</h3>
+        <div class="code-block">
+<span class="comment"># 使用安装脚本</span>
+<span class="command">curl -fsSL https://ollama.ai/install.sh | sh</span>
+        </div>
+
+        <h3 style="margin-top: 20px; margin-bottom: 10px;">Windows</h3>
+        <p>访问 <a href="https://ollama.ai" target="_blank">ollama.ai</a> 下载安装包</p>
+
+        <a href="https://ollama.ai" target="_blank" class="btn">🌐 访问 Ollama 官网</a>
+      </div>
+
+      <!-- 步骤 2 -->
+      <div class="step">
+        <div class="step-number">2</div>
+        <h2>🚀 启动 Ollama 服务</h2>
+        <p>安装完成后，需要启动 Ollama 服务：</p>
+        
+        <div class="code-block">
+<span class="comment"># 在终端中运行</span>
+<span class="command">ollama serve</span>
+        </div>
+
+        <div class="warning">
+          <strong>⚠️ 注意：</strong> 保持这个终端窗口运行，不要关闭。Ollama 服务需要持续运行才能使用翻译功能。
+        </div>
+      </div>
+
+      <!-- 步骤 3 -->
+      <div class="step">
+        <div class="step-number">3</div>
+        <h2>🧠 下载 AI 模型</h2>
+        <p>打开<strong>新的终端窗口</strong>，下载翻译所需的 AI 模型：</p>
+        
+        <h3 style="margin-top: 20px; margin-bottom: 10px;">推荐模型（轻量快速）</h3>
+        <div class="code-block">
+<span class="comment"># 下载 Qwen 3 0.6B 模型（523MB）</span>
+<span class="command">ollama pull qwen3:0.6b</span>
+        </div>
+
+        <h3 style="margin-top: 20px; margin-bottom: 10px;">其他可选模型</h3>
+        <div class="code-block">
+<span class="comment"># Llama 3.1 8B（约 4.7GB，质量更好）</span>
+<span class="command">ollama pull llama3.1</span>
+
+<span class="comment"># Gemma 2 9B（约 5.5GB，高质量）</span>
+<span class="command">ollama pull gemma2</span>
+        </div>
+
+        <div class="success">
+          <strong>💡 提示：</strong> 首次下载需要一些时间，请耐心等待。模型下载完成后会自动加载到内存中。
+        </div>
+      </div>
+
+      <!-- 步骤 4 -->
+      <div class="step">
+        <div class="step-number">4</div>
+        <h2>🔧 安装 Chrome 插件</h2>
+        <p>将本插件加载到 Chrome 浏览器：</p>
+        
+        <ul class="checklist">
+          <li>打开 Chrome，访问 <code>chrome://extensions/</code></li>
+          <li>开启右上角的「开发者模式」开关</li>
+          <li>点击「加载已解压的扩展程序」按钮</li>
+          <li>选择本项目的文件夹</li>
+          <li>确认插件图标出现在工具栏中</li>
+        </ul>
+
+        <div class="warning">
+          <strong>⚠️ 图标问题：</strong> 如果插件图标显示异常，请打开 <code>generate_icons.html</code> 生成图标文件，然后将它们放入 <code>icons/</code> 文件夹。
+        </div>
+      </div>
+
+      <!-- 步骤 5 -->
+      <div class="step">
+        <div class="step-number">5</div>
+        <h2>⚙️ 配置插件</h2>
+        <p>点击 Chrome 工具栏中的插件图标，进行配置：</p>
+        
+        <ul class="checklist">
+          <li>检查连接状态是否为「✅ 连接成功」</li>
+          <li>选择已下载的模型（如 <code>qwen3:0.6b</code>）</li>
+          <li>选择翻译语言模式（建议选「自动检测」）</li>
+          <li>调整温度参数（建议保持默认 0.7）</li>
+          <li>点击「💾 保存配置」按钮</li>
+        </ul>
+
+        <div class="success">
+          <strong>✅ 完成：</strong> 如果看到「连接成功」提示，说明配置完成！现在可以开始使用了。
+        </div>
+      </div>
+
+      <!-- 测试 -->
+      <div class="step">
+        <div class="step-number">6</div>
+        <h2>🎉 开始使用</h2>
+        <p>现在可以测试翻译功能了：</p>
+        
+        <ul class="checklist">
+          <li>打开任意网页（或者打开 <code>test.html</code>）</li>
+          <li>用鼠标选中一段文字</li>
+          <li>等待翻译弹窗自动出现</li>
+          <li>查看翻译结果</li>
+          <li>点击空白处关闭弹窗</li>
+        </ul>
+
+        <a href="test.html" class="btn">🧪 打开测试页面</a>
+        <button onclick="runCheck()" class="btn btn-secondary">🔍 运行环境检查</button>
+      </div>
+
+      <!-- 故障排除 -->
+      <div class="step" style="background: #fef2f2; border-left-color: #ef4444;">
+        <div class="step-number" style="background: #ef4444;">❓</div>
+        <h2>🔧 故障排除</h2>
+        
+        <h3 style="margin-top: 20px; margin-bottom: 10px;">问题：无法连接到 Ollama</h3>
+        <ul style="margin-left: 20px; color: #555; line-height: 1.8;">
+          <li>确认 Ollama 服务正在运行：<code>ps aux | grep ollama</code></li>
+          <li>测试 API 连接：<code>curl http://localhost:11434/api/tags</code></li>
+          <li>重启服务：<code>pkill ollama && ollama serve</code></li>
+        </ul>
+
+        <h3 style="margin-top: 20px; margin-bottom: 10px;">问题：选中文本没有反应</h3>
+        <ul style="margin-left: 20px; color: #555; line-height: 1.8;">
+          <li>检查插件是否已启用（<code>chrome://extensions/</code>）</li>
+          <li>刷新当前网页</li>
+          <li>检查浏览器控制台是否有错误</li>
+        </ul>
+
+        <h3 style="margin-top: 20px; margin-bottom: 10px;">问题：翻译速度很慢</h3>
+        <ul style="margin-left: 20px; color: #555; line-height: 1.8;">
+          <li>尝试使用更小的模型（如 <code>qwen3:0.6b</code>）</li>
+          <li>减少选中文本的长度</li>
+          <li>检查电脑内存是否充足（建议 8GB+）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>需要更多帮助？查看详细文档</p>
+      <div class="links">
+        <a href="README.md" class="btn btn-secondary">📖 完整文档</a>
+        <a href="QUICK_START.md" class="btn btn-secondary">🚀 快速开始</a>
+        <a href="https://ollama.ai" target="_blank" class="btn btn-secondary">🌐 Ollama 官网</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function runCheck() {
+      alert('请在终端中运行以下命令进行环境检查：\n\n./check_setup.sh\n\n或者直接执行：\n\ncurl http://localhost:11434/api/tags');
+    }
+  </script>
+</body>
+</html>
+

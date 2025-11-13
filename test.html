@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DreamLingua 测试页面</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+      line-height: 1.8;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      color: #667eea;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+      font-size: 14px;
+    }
+    
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .section h2 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .test-text {
+      user-select: text;
+      cursor: text;
+      padding: 15px;
+      background: white;
+      border-radius: 6px;
+      margin: 10px 0;
+      border: 1px dashed #d1d5db;
+      transition: all 0.2s;
+    }
+    
+    .test-text:hover {
+      border-color: #667eea;
+      background: #fafbff;
+    }
+    
+    .highlight {
+      background: #fef3c7;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    
+    .instructions {
+      background: #ecfdf5;
+      border: 2px solid #10b981;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    
+    .instructions h3 {
+      color: #10b981;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    
+    .instructions ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    
+    .instructions li {
+      margin-bottom: 8px;
+    }
+    
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #dc2626;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💫 DreamLingua 测试</h1>
+    <p class="subtitle">选中下方文本测试翻译功能</p>
+    
+    <div class="instructions">
+      <h3>📖 使用说明</h3>
+      <ol>
+        <li>确保 Chrome 插件已安装并启用</li>
+        <li>确保 Ollama 服务正在运行：<code>ollama serve</code></li>
+        <li>用鼠标<strong>选中</strong>下方任意文本</li>
+        <li>等待翻译弹窗自动出现</li>
+        <li>点击空白处关闭弹窗</li>
+      </ol>
+    </div>
+    
+    <div class="section">
+      <h2>🇨🇳 中文测试文本</h2>
+      <div class="test-text">
+        人工智能正在深刻改变我们的生活方式。从智能手机中的语音助手，到自动驾驶汽车，再到医疗诊断系统，AI 技术已经渗透到我们生活的方方面面。
+      </div>
+      <div class="test-text">
+        机器学习是人工智能的一个重要分支，它使计算机能够从数据中学习，而无需明确编程。深度学习作为机器学习的一个子领域，使用多层神经网络来处理复杂的模式识别任务。
+      </div>
+      <div class="test-text">
+        <span class="highlight">选中这段文字试试</span>：大语言模型（LLM）是一种基于深度学习的自然语言处理模型，能够理解和生成人类语言。它们通过在海量文本数据上训练，学会了语言的结构和语义。
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>🇬🇧 English Test Text</h2>
+      <div class="test-text">
+        Artificial intelligence is profoundly transforming our way of life. From voice assistants in smartphones to self-driving cars and medical diagnostic systems, AI technology has permeated every aspect of our lives.
+      </div>
+      <div class="test-text">
+        Machine learning is an important branch of artificial intelligence that enables computers to learn from data without being explicitly programmed. Deep learning, as a subfield of machine learning, uses multi-layer neural networks to handle complex pattern recognition tasks.
+      </div>
+      <div class="test-text">
+        <span class="highlight">Try selecting this text</span>: Large Language Models (LLMs) are natural language processing models based on deep learning that can understand and generate human language. They learn the structure and semantics of language by training on massive amounts of text data.
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>🔬 技术术语测试</h2>
+      <div class="test-text">
+        Neural networks, gradient descent, backpropagation, transformer architecture
+      </div>
+      <div class="test-text">
+        神经网络、梯度下降、反向传播、Transformer 架构
+      </div>
+      <div class="test-text">
+        The attention mechanism allows models to focus on relevant parts of the input when making predictions.
+      </div>
+      <div class="test-text">
+        注意力机制允许模型在进行预测时关注输入的相关部分。
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>📚 长文本测试</h2>
+      <div class="test-text">
+        In the rapidly evolving field of artificial intelligence, large language models have emerged as a groundbreaking innovation. These sophisticated systems, trained on vast amounts of text data from the internet, books, and other sources, demonstrate remarkable capabilities in understanding context, generating coherent text, and even performing tasks they weren't explicitly trained for. The development of models like GPT, BERT, and their successors has opened up new possibilities in natural language processing, enabling applications ranging from chatbots and content generation to code completion and language translation.
+      </div>
+      <div class="test-text">
+        在快速发展的人工智能领域，大语言模型已经成为一项突破性创新。这些复杂的系统在来自互联网、书籍和其他来源的大量文本数据上进行训练，展现出在理解上下文、生成连贯文本，甚至执行它们没有明确训练过的任务方面的卓越能力。像 GPT、BERT 及其后续版本等模型的发展，为自然语言处理开辟了新的可能性，使得从聊天机器人和内容生成到代码补全和语言翻译等应用成为可能。
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>✅ 测试检查清单</h2>
+      <div class="test-text">
+        <strong>请测试以下功能：</strong><br/>
+        ☐ 选中文本后弹窗正常显示<br/>
+        ☐ 翻译结果准确完整<br/>
+        ☐ 中文自动翻译成英文<br/>
+        ☐ 英文自动翻译成中文<br/>
+        ☐ 点击关闭按钮可以关闭弹窗<br/>
+        ☐ 点击空白处可以关闭弹窗<br/>
+        ☐ 滚动页面时弹窗自动隐藏<br/>
+        ☐ 长文本翻译功能正常<br/>
+        ☐ 短句翻译功能正常<br/>
+        ☐ 专业术语翻译准确
+      </div>
+    </div>
+    
+    <div class="instructions" style="background: #fef3c7; border-color: #f59e0b;">
+      <h3 style="color: #d97706;">⚠️ 故障排除</h3>
+      <ul style="list-style: none; padding-left: 0;">
+        <li>❌ <strong>无翻译弹窗</strong>：检查插件是否已启用</li>
+        <li>❌ <strong>连接失败</strong>：确认 Ollama 服务运行中</li>
+        <li>❌ <strong>翻译缓慢</strong>：尝试更小的模型</li>
+        <li>❌ <strong>翻译错误</strong>：检查模型是否正确下载</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+

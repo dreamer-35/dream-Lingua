@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DreamLingua 设置</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <div class="popup-header">
+      <h1>💫 DreamLingua</h1>
+      <p class="subtitle">本地 AI 驱动的划词翻译</p>
+    </div>
+
+    <div class="popup-content">
+      <!-- 连接状态 -->
+      <div class="status-section">
+        <div class="status-indicator" id="connectionStatus">
+          <span class="status-dot"></span>
+          <span class="status-text">检查连接中...</span>
+        </div>
+        <button class="btn-test" id="testBtn">🔍 测试连接</button>
+      </div>
+
+      <!-- 配置表单 -->
+      <form id="configForm">
+        <div class="form-group">
+          <label for="ollamaUrl">
+            <span class="label-icon">🌐</span>
+            Ollama API 地址
+          </label>
+          <input 
+            type="text" 
+            id="ollamaUrl" 
+            name="ollamaUrl" 
+            placeholder="http://localhost:11434"
+            class="form-input"
+          />
+          <small class="form-hint">默认: http://localhost:11434</small>
+        </div>
+
+        <div class="form-group">
+          <label for="model">
+            <span class="label-icon">🧠</span>
+            模型名称
+          </label>
+          <input 
+            type="text" 
+            id="model" 
+            name="model" 
+            placeholder="qwen3:0.6b"
+            class="form-input"
+          />
+          <small class="form-hint">推荐: qwen3:0.6b, llama3.1, gemma2 等</small>
+          <div id="modelList" class="model-list"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="targetLanguage">
+            <span class="label-icon">🌍</span>
+            翻译语言
+          </label>
+          <select id="targetLanguage" name="targetLanguage" class="form-input">
+            <option value="auto">自动检测（中英互译）</option>
+            <option value="zh">总是翻译成中文</option>
+            <option value="en">总是翻译成英文</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="temperature">
+            <span class="label-icon">🌡️</span>
+            温度参数: <span id="temperatureValue">0.7</span>
+          </label>
+          <input 
+            type="range" 
+            id="temperature" 
+            name="temperature" 
+            min="0" 
+            max="1" 
+            step="0.1" 
+            value="0.7"
+            class="form-range"
+          />
+          <small class="form-hint">较低值更精确，较高值更有创造性</small>
+        </div>
+
+        <button type="submit" class="btn-save">💾 保存配置</button>
+      </form>
+
+      <!-- 使用说明 -->
+      <div class="help-section">
+        <h3>📖 使用说明</h3>
+        <ol>
+          <li>确保本地已安装并运行 <strong>Ollama</strong></li>
+          <li>在任意网页上<strong>选中文本</strong></li>
+          <li>自动弹出翻译结果</li>
+          <li>点击空白处关闭翻译窗口</li>
+        </ol>
+        <div class="help-links">
+          <a href="https://ollama.ai" target="_blank">🔗 Ollama 官网</a>
+          <a href="https://github.com/dreamer-35/dream-Lingua/README.md" target="_blank">📚 使用文档</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup-footer">
+      <small>Version 1.0.0 | Made with ☀️<a href="https://github.com/dreamer-35/dream-Lingua" target="_blank">github</a></small>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+

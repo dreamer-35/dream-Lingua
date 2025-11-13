@@ -1,0 +1,24 @@
+{
+  "name": "ollama-local-translate",
+  "version": "1.0.0",
+  "description": "使用本地 Ollama 模型进行划词翻译的 Chrome 插件",
+  "scripts": {
+    "test": "echo \"请在 Chrome 中加载插件进行测试\"",
+    "create-icons": "node create_icons.js"
+  },
+  "keywords": [
+    "chrome-extension",
+    "translation",
+    "ollama",
+    "ai",
+    "local",
+    "privacy"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ollama-local-translate"
+  }
+}
+

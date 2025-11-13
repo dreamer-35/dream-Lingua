@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- 渐变背景 -->
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 圆角矩形背景 -->
+  <rect width="128" height="128" rx="24" fill="url(#grad)"/>
+  
+  <!-- 翻译图标 -->
+  <g transform="translate(24, 24)">
+    <!-- 左侧文字 A -->
+    <text x="10" y="48" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white">A</text>
+    
+    <!-- 箭头 -->
+    <path d="M 35 30 L 45 30 L 40 25 M 45 30 L 45 50 L 50 45" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+    
+    <!-- 右侧文字 文 -->
+    <text x="48" y="70" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="white">文</text>
+  </g>
+  
+  <!-- AI 徽章 -->
+  <circle cx="100" cy="28" r="16" fill="#10b981"/>
+  <text x="100" y="33" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">AI</text>
+</svg>
+
