@@ -3,8 +3,26 @@
 - A local, privacy-first AI translator. No clouds. No tracking. Just dreams, in your language.
 - 一款本地化、注重隐私的AI翻译器。无云端，无追踪。只用你的语言，为你带来梦境般的体验。
 
-### 🎥 演示视频
-<video src="https://vimeo.com/1136545162?fl=ip&fe=ec" controls="controls" width="600"></video>
+### 🎥 演示
+
+<table>
+<tr>
+<td>
+<img src="https://github.com/user-attachments/assets/4a3f9e2f-eedb-45f2-a749-0cc80170d9b9" alt="dreamlingua1" width="100%"/>
+</td>
+<td>
+<img src="https://github.com/user-attachments/assets/ddba2042-0df3-4745-a7f9-e2ff048452f1" alt="dreamlingua2" width="100%"/> 
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/user-attachments/assets/47a3e7a6-e2fa-4a0d-b96c-9dc663ecc22c" alt="dreamlingua3" width="100%"/>
+</td>
+<td>
+<img src="https://github.com/user-attachments/assets/ddf35dcd-23cb-4fef-b05f-a5ae42bafffd" alt="dreamlingua4" width="100%"/> 
+</td>
+</tr>
+</table>
 
 ## ✨ 特性
 
