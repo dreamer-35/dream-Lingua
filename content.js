@@ -14,7 +14,7 @@ function createTranslationPopup() {
   translationPopup.className = 'ollama-popup';
   translationPopup.innerHTML = `
     <div class="ollama-popup-header">
-      <span class="ollama-popup-title">🤡 翻译中...</span>
+      <span class="ollama-popup-title">💫 翻译中...</span>
       <button class="ollama-popup-close">×</button>
     </div>
     <div class="ollama-popup-content">
