@@ -35,22 +35,23 @@ function createTranslationPopup() {
 function showTranslationPopup(x, y, text) {
   const popup = createTranslationPopup();
   
-  // 设置位置（在选中文本下方）
-  let top = y + 20;
-  let left = x;
-
-  // 确保弹窗不超出视口
-  const popupRect = popup.getBoundingClientRect();
-  if (left + 350 > window.innerWidth) {
-    left = window.innerWidth - 360;
-  }
-  if (top + popupRect.height > window.innerHeight + window.scrollY) {
-    top = y - popupRect.height - 10;
-  }
-
-  popup.style.top = `${top}px`;
-  popup.style.left = `${left}px`;
+  // 保存鼠标位置，供后续重新定位使用
+  popup.dataset.cursorX = x;
+  popup.dataset.cursorY = y;
+  
+  // 先显示弹窗以获取真实尺寸
   popup.style.display = 'block';
+  popup.style.visibility = 'hidden';
+  
+  // 初始位置设置
+  popup.style.top = `${y + 20}px`;
+  popup.style.left = `${x}px`;
+  
+  // 等待下一帧，确保 DOM 已渲染
+  requestAnimationFrame(() => {
+    positionPopup(popup, x, y);
+    popup.style.visibility = 'visible';
+  });
 
   // 发送翻译请求到 background script
   chrome.runtime.sendMessage(
@@ -63,6 +64,78 @@ function showTranslationPopup(x, y, text) {
       }
     }
   );
+}
+
+// 智能定位弹窗，确保完全在视口内可见
+function positionPopup(popup, x, y) {
+  const popupRect = popup.getBoundingClientRect();
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const scrollX = window.scrollX || window.pageXOffset;
+  const scrollY = window.scrollY || window.pageYOffset;
+  
+  // 定义弹窗与边缘的安全距离
+  const PADDING = 10;
+  const OFFSET_FROM_CURSOR = 20;
+  
+  // 计算可用的最大高度（视口高度减去上下边距）
+  const maxHeight = viewportHeight - (PADDING * 2);
+  const contentEl = popup.querySelector('.ollama-popup-content');
+  if (contentEl) {
+    // 设置内容区域的最大高度，留出头部空间
+    contentEl.style.maxHeight = `${maxHeight - 60}px`;
+  }
+  
+  let top, left;
+  
+  // 水平位置计算
+  // 优先尝试在光标右侧显示
+  if (x + popupRect.width + PADDING <= viewportWidth) {
+    // 光标右侧有足够空间
+    left = x;
+  } else if (x - popupRect.width >= PADDING) {
+    // 光标右侧空间不足，尝试左侧
+    left = x - popupRect.width;
+  } else {
+    // 两侧都不够，居中显示或靠右
+    left = Math.max(PADDING, viewportWidth - popupRect.width - PADDING);
+  }
+  
+  // 垂直位置计算
+  // 优先尝试在光标下方显示
+  const spaceBelow = viewportHeight - (y - scrollY) - OFFSET_FROM_CURSOR;
+  const spaceAbove = (y - scrollY) - OFFSET_FROM_CURSOR;
+  
+  if (popupRect.height <= spaceBelow) {
+    // 下方有足够空间
+    top = y + OFFSET_FROM_CURSOR;
+  } else if (popupRect.height <= spaceAbove) {
+    // 下方空间不足，上方有足够空间
+    top = y - popupRect.height - OFFSET_FROM_CURSOR;
+  } else {
+    // 上下都不够，选择空间较大的一侧，并调整高度
+    if (spaceBelow >= spaceAbove) {
+      // 下方空间更大
+      top = y + OFFSET_FROM_CURSOR;
+      if (contentEl) {
+        contentEl.style.maxHeight = `${spaceBelow - 80}px`;
+      }
+    } else {
+      // 上方空间更大
+      top = scrollY + PADDING;
+      if (contentEl) {
+        contentEl.style.maxHeight = `${spaceAbove - 80}px`;
+      }
+    }
+  }
+  
+  // 确保不超出视口边界
+  left = Math.max(PADDING, Math.min(left, viewportWidth - popupRect.width - PADDING));
+  top = Math.max(scrollY + PADDING, Math.min(top, scrollY + viewportHeight - PADDING - 100));
+  
+  // 应用最终位置
+  popup.style.left = `${left}px`;
+  popup.style.top = `${top}px`;
 }
 
 // 更新翻译内容
@@ -83,6 +156,16 @@ function updateTranslationContent(translation) {
       ${translation}
     </div>
   `;
+  
+  // 内容更新后，重新调整弹窗位置以适应新内容
+  requestAnimationFrame(() => {
+    // 获取弹窗的当前位置（鼠标点击位置已存储）
+    if (translationPopup && translationPopup.dataset.cursorX && translationPopup.dataset.cursorY) {
+      const x = parseFloat(translationPopup.dataset.cursorX);
+      const y = parseFloat(translationPopup.dataset.cursorY);
+      positionPopup(translationPopup, x, y);
+    }
+  });
 }
 
 // 隐藏翻译弹窗
@@ -133,6 +216,17 @@ document.addEventListener('click', (event) => {
 // 滚动时隐藏弹窗
 document.addEventListener('scroll', () => {
   hideTranslationPopup();
+});
+
+// 窗口大小改变时重新定位弹窗
+window.addEventListener('resize', () => {
+  if (translationPopup && translationPopup.style.display === 'block') {
+    if (translationPopup.dataset.cursorX && translationPopup.dataset.cursorY) {
+      const x = parseFloat(translationPopup.dataset.cursorX);
+      const y = parseFloat(translationPopup.dataset.cursorY);
+      positionPopup(translationPopup, x, y);
+    }
+  }
 });
 
 console.log('DreamLingua 内容脚本已加载');

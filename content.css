@@ -70,6 +70,9 @@
   color: #1f2937;
   max-height: 400px;
   overflow-y: auto;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .ollama-popup-loading {
