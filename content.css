@@ -1,8 +1,9 @@
 /* Content Script 样式 - 翻译弹窗 */
 
 .ollama-popup {
-  position: absolute;
-  z-index: 999999;
+  position: fixed !important;
+  /* 使用极高的 z-index 确保在所有网站元素之上 */
+  z-index: 2147483647 !important;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05);
@@ -11,16 +12,30 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: none;
   animation: ollama-popup-fadein 0.2s ease-out;
+  /* 确保不被其他 CSS 属性影响 */
+  isolation: isolate;
+  /* 防止被 transform 影响层级 */
+  will-change: transform;
+  /* 创建新的层叠上下文 */
+  transform: translateZ(0);
+  /* 防止被指针事件穿透 */
+  pointer-events: auto !important;
+  /* 确保可见性 */
+  visibility: visible !important;
+  opacity: 1;
+  /* 确保不受父元素影响 */
+  top: 0;
+  left: 0;
 }
 
 @keyframes ollama-popup-fadein {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-10px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
@@ -32,6 +47,9 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 12px 12px 0 0;
   color: white;
+  position: relative;
+  z-index: 1;
+  pointer-events: auto !important;
 }
 
 .ollama-popup-title {
@@ -73,6 +91,10 @@
   overflow-x: hidden;
   word-wrap: break-word;
   word-break: break-word;
+  position: relative;
+  z-index: 1;
+  pointer-events: auto !important;
+  background: #ffffff;
 }
 
 .ollama-popup-loading {
@@ -133,5 +155,42 @@
   background: #fee2e2;
   border-radius: 8px;
   border-left: 3px solid #dc2626;
+}
+
+/* 
+ * 额外的可见性保障规则
+ * 防止被网站的全局样式覆盖
+ */
+.ollama-popup,
+.ollama-popup * {
+  /* 防止被网站的全局 filter 影响 */
+  -webkit-filter: none !important;
+  filter: none !important;
+  /* 防止被网站的全局 backdrop-filter 影响 */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  /* 防止被混合模式影响 */
+  mix-blend-mode: normal !important;
+  /* 确保不会被 clip-path 裁剪 */
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
+  /* 防止被 mask 遮挡 */
+  mask: none !important;
+  -webkit-mask: none !important;
+}
+
+/* 确保弹窗本身的核心属性不被覆盖 */
+#ollama-translation-popup {
+  z-index: 2147483647 !important;
+  position: fixed !important;
+  display: block !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* 当弹窗被隐藏时允许 display: none */
+#ollama-translation-popup[style*="display: none"],
+#ollama-translation-popup[style*="display:none"] {
+  display: none !important;
 }
 

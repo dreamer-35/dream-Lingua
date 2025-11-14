@@ -22,7 +22,8 @@ function createTranslationPopup() {
     </div>
   `;
 
-  document.body.appendChild(translationPopup);
+  // 直接添加到 documentElement（html），避免被 body 的层叠上下文影响
+  (document.body || document.documentElement).appendChild(translationPopup);
 
   // 添加关闭按钮事件
   const closeBtn = translationPopup.querySelector('.ollama-popup-close');
@@ -67,12 +68,16 @@ function showTranslationPopup(x, y, text) {
 }
 
 // 智能定位弹窗，确保完全在视口内可见
-function positionPopup(popup, x, y) {
+function positionPopup(popup, pageX, pageY) {
   const popupRect = popup.getBoundingClientRect();
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
   const scrollX = window.scrollX || window.pageXOffset;
   const scrollY = window.scrollY || window.pageYOffset;
+  
+  // 转换为视口坐标（fixed 定位使用）
+  const viewportX = pageX - scrollX;
+  const viewportY = pageY - scrollY;
   
   // 定义弹窗与边缘的安全距离
   const PADDING = 10;
@@ -88,52 +93,52 @@ function positionPopup(popup, x, y) {
   
   let top, left;
   
-  // 水平位置计算
+  // 水平位置计算（使用视口坐标）
   // 优先尝试在光标右侧显示
-  if (x + popupRect.width + PADDING <= viewportWidth) {
+  if (viewportX + popupRect.width + PADDING <= viewportWidth) {
     // 光标右侧有足够空间
-    left = x;
-  } else if (x - popupRect.width >= PADDING) {
+    left = viewportX;
+  } else if (viewportX - popupRect.width >= PADDING) {
     // 光标右侧空间不足，尝试左侧
-    left = x - popupRect.width;
+    left = viewportX - popupRect.width;
   } else {
     // 两侧都不够，居中显示或靠右
     left = Math.max(PADDING, viewportWidth - popupRect.width - PADDING);
   }
   
-  // 垂直位置计算
+  // 垂直位置计算（使用视口坐标）
   // 优先尝试在光标下方显示
-  const spaceBelow = viewportHeight - (y - scrollY) - OFFSET_FROM_CURSOR;
-  const spaceAbove = (y - scrollY) - OFFSET_FROM_CURSOR;
+  const spaceBelow = viewportHeight - viewportY - OFFSET_FROM_CURSOR;
+  const spaceAbove = viewportY - OFFSET_FROM_CURSOR;
   
   if (popupRect.height <= spaceBelow) {
     // 下方有足够空间
-    top = y + OFFSET_FROM_CURSOR;
+    top = viewportY + OFFSET_FROM_CURSOR;
   } else if (popupRect.height <= spaceAbove) {
     // 下方空间不足，上方有足够空间
-    top = y - popupRect.height - OFFSET_FROM_CURSOR;
+    top = viewportY - popupRect.height - OFFSET_FROM_CURSOR;
   } else {
     // 上下都不够，选择空间较大的一侧，并调整高度
     if (spaceBelow >= spaceAbove) {
       // 下方空间更大
-      top = y + OFFSET_FROM_CURSOR;
+      top = viewportY + OFFSET_FROM_CURSOR;
       if (contentEl) {
         contentEl.style.maxHeight = `${spaceBelow - 80}px`;
       }
     } else {
       // 上方空间更大
-      top = scrollY + PADDING;
+      top = PADDING;
       if (contentEl) {
         contentEl.style.maxHeight = `${spaceAbove - 80}px`;
       }
     }
   }
   
-  // 确保不超出视口边界
+  // 确保不超出视口边界（fixed 定位，无需加 scrollY）
   left = Math.max(PADDING, Math.min(left, viewportWidth - popupRect.width - PADDING));
-  top = Math.max(scrollY + PADDING, Math.min(top, scrollY + viewportHeight - PADDING - 100));
+  top = Math.max(PADDING, Math.min(top, viewportHeight - PADDING - 100));
   
-  // 应用最终位置
+  // 应用最终位置（使用 fixed 定位的视口坐标）
   popup.style.left = `${left}px`;
   popup.style.top = `${top}px`;
 }
